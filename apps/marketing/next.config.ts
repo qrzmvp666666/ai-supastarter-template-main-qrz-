@@ -7,6 +7,7 @@ const withNextIntl = nextIntlPlugin("./modules/i18n/request.ts");
 const nextConfig: NextConfig = {
 	transpilePackages: ["@repo/i18n", "@repo/ui"],
 	images: {
+		unoptimized: true,
 		remotePatterns: [
 			{
 				protocol: "https",
