@@ -1,0 +1,115 @@
+---
+title: 5 Tips for Building a Scalable Design System
+date: 2024-03-10
+image: https://picsum.photos/id/42/1200/800
+authorName: Maria Garcia
+authorImage: https://picsum.photos/id/338/200/200
+excerpt: Lessons learned from building and maintaining design systems for fast-growing products.
+tags: [design, ui, frontend, tailwind]
+published: true
+---
+
+## What Is a Design System?
+
+A design system is a collection of reusable components, guidelines, and tokens that teams use to build consistent interfaces. Think of it as the single source of truth for your product's look and feel.
+
+## Tip 1: Start with Design Tokens
+
+Design tokens are the atomic values of your design — colors, spacing, typography. Define them first:
+
+```css
+:root {
+  --color-primary: oklch(56% 0.2 250);
+  --color-background: oklch(98% 0 0);
+  --spacing-md: 1rem;
+  --radius-lg: 0.75rem;
+}
+```
+
+With Tailwind, map your tokens in `tailwind.config.ts`:
+
+```typescript
+theme: {
+  extend: {
+    colors: {
+      primary: "oklch(var(--color-primary) / <alpha-value>)",
+    },
+  },
+}
+```
+
+## Tip 2: Build Primitives First
+
+Don't jump straight to building complex components. Start with the basics:
+
+- `Button` (variants: primary, secondary, ghost, destructive)
+- `Input`, `Select`, `Checkbox`
+- `Badge`, `Avatar`
+- `Card`, `Separator`
+
+## Tip 3: Embrace Composition over Configuration
+
+Prefer composable APIs over components with endless props:
+
+```tsx
+// ❌ Too many props
+<Card title="Hello" subtitle="World" image="/img.png" footer={<Button />} />
+
+// ✅ Composable
+<Card>
+  <CardHeader>
+    <CardTitle>Hello</CardTitle>
+    <CardDescription>World</CardDescription>
+  </CardHeader>
+  <CardContent>
+    <img src="/img.png" alt="" />
+  </CardContent>
+  <CardFooter>
+    <Button>Action</Button>
+  </CardFooter>
+</Card>
+```
+
+## Tip 4: Document Everything with Examples
+
+A component without documentation is barely better than no component. Use Storybook or a simple MDX docs site to show:
+
+- Default usage
+- All variants
+- Edge cases (empty state, error state, loading state)
+
+## Tip 5: Treat Accessibility as Non-Negotiable
+
+Every component should be keyboard-navigable and screen-reader friendly. Use Radix UI primitives as your foundation — they handle the hard parts for you:
+
+```tsx
+import * as Dialog from "@radix-ui/react-dialog";
+
+export function Modal({ children }: { children: React.ReactNode }) {
+  return (
+    <Dialog.Root>
+      <Dialog.Trigger asChild>
+        <Button>Open</Button>
+      </Dialog.Trigger>
+      <Dialog.Portal>
+        <Dialog.Overlay className="fixed inset-0 bg-black/50" />
+        <Dialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-lg">
+          {children}
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
+  );
+}
+```
+
+## Summary
+
+| Tip | Key Takeaway |
+|-----|-------------|
+| Design Tokens | Single source of truth for visual values |
+| Primitives First | Build simple before complex |
+| Composition | Flexible APIs > prop explosion |
+| Documentation | Examples are more valuable than prose |
+| Accessibility | Radix UI primitives handle a11y for free |
+
+Building a great design system takes time, but the investment pays off in team velocity and product consistency.

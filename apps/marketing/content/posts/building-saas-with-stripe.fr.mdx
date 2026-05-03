@@ -1,0 +1,89 @@
+---
+title: Créer un SaaS avec les abonnements Stripe
+date: 2024-02-20
+image: https://picsum.photos/id/180/1200/800
+authorName: Alex Johnson
+authorImage: https://picsum.photos/id/91/200/200
+excerpt: Un guide étape par étape pour intégrer les abonnements Stripe dans votre application SaaS.
+tags: [saas, stripe, paiements, business]
+published: true
+---
+
+## Pourquoi Stripe pour un SaaS ?
+
+Stripe est la référence pour la gestion des paiements dans les produits SaaS. Il offre une API riche, une excellente documentation et gère toute la complexité de la facturation récurrente, du recouvrement et de la conformité fiscale.
+
+## Concepts clés
+
+### Produits et Prix
+
+Dans Stripe, vous définissez des **Produits** (ce que vous vendez) et des **Prix** (combien et à quelle fréquence) :
+
+- **Prix unique** – un seul paiement
+- **Prix récurrent** – abonnement mensuel ou annuel
+
+### Cycle de vie d'un abonnement
+
+```
+Essai → Actif → En retard → Annulé
+                    ↓
+                  Actif (après paiement)
+```
+
+## Étapes d'intégration
+
+### 1. Créer une session Checkout
+
+```typescript
+const session = await stripe.checkout.sessions.create({
+  mode: "subscription",
+  payment_method_types: ["card"],
+  line_items: [{ price: priceId, quantity: 1 }],
+  success_url: `${baseUrl}/dashboard?success=true`,
+  cancel_url: `${baseUrl}/pricing`,
+});
+```
+
+### 2. Gérer les Webhooks
+
+Stripe envoie des événements pour chaque changement d'abonnement. Vérifiez toujours la signature du webhook :
+
+```typescript
+const event = stripe.webhooks.constructEvent(
+  body,
+  signature,
+  process.env.STRIPE_WEBHOOK_SECRET
+);
+
+switch (event.type) {
+  case "customer.subscription.created":
+    await activateSubscription(event.data.object);
+    break;
+  case "customer.subscription.deleted":
+    await cancelSubscription(event.data.object);
+    break;
+}
+```
+
+### 3. Protéger les routes selon le plan
+
+```typescript
+export async function requireActivePlan(userId: string) {
+  const subscription = await getSubscription(userId);
+
+  if (!subscription || subscription.status !== "active") {
+    redirect("/pricing");
+  }
+}
+```
+
+## Bonnes pratiques
+
+- **Utilisez toujours les webhooks** pour les changements de statut — ne vous fiez jamais uniquement aux redirections
+- **Stockez l'ID client Stripe** dans votre base de données avec l'enregistrement utilisateur
+- **Testez avec les cartes de test Stripe** avant de mettre en production (ex. `4242 4242 4242 4242`)
+- **Activez Stripe Radar** pour bloquer automatiquement les paiements frauduleux
+
+## Conclusion
+
+Stripe gérant la complexité de la facturation, vous pouvez vous concentrer sur la création de fonctionnalités pour vos utilisateurs. Commencez par le Checkout hébergé pour la simplicité, puis personnalisez l'interface au fur et à mesure.

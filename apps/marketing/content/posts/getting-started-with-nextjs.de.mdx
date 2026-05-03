@@ -1,0 +1,60 @@
+---
+title: Einstieg in den Next.js App Router
+date: 2024-01-15
+image: https://picsum.photos/id/0/1200/800
+authorName: Jane Smith
+authorImage: https://picsum.photos/id/64/200/200
+excerpt: Alles, was du wissen musst, um moderne Web-Apps mit dem Next.js App Router zu entwickeln.
+tags: [nextjs, webdev, tutorial]
+published: true
+---
+
+## Warum Next.js App Router?
+
+Der mit Next.js 13 eingeführte App Router ist ein Wendepunkt. Er setzt standardmäßig auf React Server Components, was bedeutet: weniger JavaScript im Browser und schnellere Ladezeiten.
+
+## Dein erstes Projekt aufsetzen
+
+```bash
+npx create-next-app@latest my-app
+cd my-app
+npm run dev
+```
+
+## Kernkonzepte
+
+### Server Components
+
+Alle Komponenten im `app/`-Verzeichnis sind standardmäßig **Server Components**. Sie laufen auf dem Server, können direkt Daten abrufen und schicken keinen Code an den Client.
+
+```tsx
+export default async function Page() {
+  const data = await fetch("https://api.example.com/data");
+  const json = await data.json();
+
+  return <div>{json.title}</div>;
+}
+```
+
+### Client Components
+
+Füge `"use client"` nur hinzu, wenn du Interaktivität oder Browser-APIs benötigst:
+
+```tsx
+"use client";
+
+import { useState } from "react";
+
+export function Counter() {
+  const [count, setCount] = useState(0);
+  return <button onClick={() => setCount(c => c + 1)}>{count}</button>;
+}
+```
+
+## Wie geht es weiter?
+
+- [Layouts und verschachtelte Routen](https://nextjs.org/docs/app/building-your-application/routing/layouts-and-templates) erkunden
+- [Datenabruf-Muster](https://nextjs.org/docs/app/building-your-application/data-fetching) kennenlernen
+- [Server Actions](https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations) ausprobieren
+
+Viel Spaß beim Entwickeln! 🚀

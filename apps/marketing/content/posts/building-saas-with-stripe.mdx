@@ -1,0 +1,89 @@
+---
+title: Building a SaaS Product with Stripe Subscriptions
+date: 2024-02-20
+image: https://picsum.photos/id/180/1200/800
+authorName: Alex Johnson
+authorImage: https://picsum.photos/id/91/200/200
+excerpt: A step-by-step guide to integrating Stripe subscriptions into your SaaS application.
+tags: [saas, stripe, payments, business]
+published: true
+---
+
+## Why Stripe for SaaS?
+
+Stripe is the gold standard for handling payments in SaaS products. It offers a rich API, excellent documentation, and handles all the complexity of recurring billing, dunning, and tax compliance.
+
+## Core Concepts
+
+### Products and Prices
+
+In Stripe, you define **Products** (what you sell) and **Prices** (how much and how often):
+
+- **One-time price** – a single charge
+- **Recurring price** – monthly or annual subscription
+
+### Subscription Lifecycle
+
+```
+Trial → Active → Past Due → Canceled
+                    ↓
+                  Active (after payment)
+```
+
+## Integration Steps
+
+### 1. Create a Checkout Session
+
+```typescript
+const session = await stripe.checkout.sessions.create({
+  mode: "subscription",
+  payment_method_types: ["card"],
+  line_items: [{ price: priceId, quantity: 1 }],
+  success_url: `${baseUrl}/dashboard?success=true`,
+  cancel_url: `${baseUrl}/pricing`,
+});
+```
+
+### 2. Handle Webhooks
+
+Stripe sends events for every subscription change. Always verify the webhook signature:
+
+```typescript
+const event = stripe.webhooks.constructEvent(
+  body,
+  signature,
+  process.env.STRIPE_WEBHOOK_SECRET
+);
+
+switch (event.type) {
+  case "customer.subscription.created":
+    await activateSubscription(event.data.object);
+    break;
+  case "customer.subscription.deleted":
+    await cancelSubscription(event.data.object);
+    break;
+}
+```
+
+### 3. Protect Routes by Plan
+
+```typescript
+export async function requireActivePlan(userId: string) {
+  const subscription = await getSubscription(userId);
+
+  if (!subscription || subscription.status !== "active") {
+    redirect("/pricing");
+  }
+}
+```
+
+## Best Practices
+
+- **Always use webhooks** for subscription status changes — never rely solely on redirect URLs
+- **Store the Stripe customer ID** in your database alongside the user record
+- **Test with Stripe test cards** before going live (e.g. `4242 4242 4242 4242`)
+- **Enable Stripe Radar** to automatically block fraudulent payments
+
+## Conclusion
+
+With Stripe handling the billing complexity, you can focus on building great features for your users. Start with the hosted Checkout for simplicity, then customize the UI as your product matures.

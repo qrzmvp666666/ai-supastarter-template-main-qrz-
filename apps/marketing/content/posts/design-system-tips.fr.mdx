@@ -1,0 +1,115 @@
+---
+title: 5 conseils pour créer un design system évolutif
+date: 2024-03-10
+image: https://picsum.photos/id/42/1200/800
+authorName: Maria Garcia
+authorImage: https://picsum.photos/id/338/200/200
+excerpt: Les leçons tirées de la construction et de la maintenance de design systems pour des produits en forte croissance.
+tags: [design, ui, frontend, tailwind]
+published: true
+---
+
+## Qu'est-ce qu'un design system ?
+
+Un design system est un ensemble de composants réutilisables, de directives et de tokens qu'une équipe utilise pour construire des interfaces cohérentes. Considérez-le comme la source de vérité unique pour l'apparence de votre produit.
+
+## Conseil 1 : Commencer par les design tokens
+
+Les design tokens sont les valeurs atomiques de votre design — couleurs, espacement, typographie. Définissez-les en premier :
+
+```css
+:root {
+  --color-primary: oklch(56% 0.2 250);
+  --color-background: oklch(98% 0 0);
+  --spacing-md: 1rem;
+  --radius-lg: 0.75rem;
+}
+```
+
+Avec Tailwind, mappez vos tokens dans `tailwind.config.ts` :
+
+```typescript
+theme: {
+  extend: {
+    colors: {
+      primary: "oklch(var(--color-primary) / <alpha-value>)",
+    },
+  },
+}
+```
+
+## Conseil 2 : Construire les primitives en premier
+
+Ne sautez pas directement à la construction de composants complexes. Commencez par les bases :
+
+- `Button` (variantes : primary, secondary, ghost, destructive)
+- `Input`, `Select`, `Checkbox`
+- `Badge`, `Avatar`
+- `Card`, `Separator`
+
+## Conseil 3 : Favoriser la composition plutôt que la configuration
+
+Préférez les API composables aux composants avec des dizaines de props :
+
+```tsx
+// ❌ Trop de props
+<Card title="Bonjour" subtitle="Monde" image="/img.png" footer={<Button />} />
+
+// ✅ Composable
+<Card>
+  <CardHeader>
+    <CardTitle>Bonjour</CardTitle>
+    <CardDescription>Monde</CardDescription>
+  </CardHeader>
+  <CardContent>
+    <img src="/img.png" alt="" />
+  </CardContent>
+  <CardFooter>
+    <Button>Action</Button>
+  </CardFooter>
+</Card>
+```
+
+## Conseil 4 : Tout documenter avec des exemples
+
+Un composant sans documentation est à peine mieux qu'aucun composant. Montrez :
+
+- Usage par défaut
+- Toutes les variantes
+- Cas limites (état vide, état d'erreur, état de chargement)
+
+## Conseil 5 : Traiter l'accessibilité comme non négociable
+
+Chaque composant doit être navigable au clavier et compatible avec les lecteurs d'écran. Utilisez Radix UI comme fondation :
+
+```tsx
+import * as Dialog from "@radix-ui/react-dialog";
+
+export function Modal({ children }: { children: React.ReactNode }) {
+  return (
+    <Dialog.Root>
+      <Dialog.Trigger asChild>
+        <Button>Ouvrir</Button>
+      </Dialog.Trigger>
+      <Dialog.Portal>
+        <Dialog.Overlay className="fixed inset-0 bg-black/50" />
+        <Dialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-lg">
+          {children}
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
+  );
+}
+```
+
+## Résumé
+
+| Conseil | Takeaway |
+|---------|----------|
+| Design Tokens | Source unique de vérité visuelle |
+| Primitives d'abord | Simple avant complexe |
+| Composition | API flexibles > explosion de props |
+| Documentation | Les exemples valent mieux que la prose |
+| Accessibilité | Radix UI gère a11y gratuitement |
+
+Construire un bon design system prend du temps, mais l'investissement se rentabilise en vitesse d'équipe et cohérence produit.
