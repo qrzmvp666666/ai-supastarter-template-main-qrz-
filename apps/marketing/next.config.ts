@@ -5,7 +5,7 @@ import nextIntlPlugin from "next-intl/plugin";
 const withNextIntl = nextIntlPlugin("./modules/i18n/request.ts");
 
 const nextConfig: NextConfig = {
-	transpilePackages: ["@repo/i18n", "@repo/ui"],
+	transpilePackages: ["@repo/i18n", "@repo/ui", "@repo/mail", "@repo/logs"],
 	images: {
 		unoptimized: true,
 		remotePatterns: [

@@ -17,6 +17,7 @@ import { MailCheckIcon, MailIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { submitContactForm } from "../../../app/[locale]/contact/actions";
 
 export function ContactForm() {
 	const t = useTranslations();
@@ -38,9 +39,7 @@ export function ContactForm() {
 
 	const onSubmit = form.handleSubmit(async (values) => {
 		try {
-			// TODO: Insert your contact form submission logic here to integrate with your CRM or email service
-			console.log("Submitting contact form for values:", values);
-			await new Promise((resolve) => setTimeout(resolve, 1000));
+			await submitContactForm(values);
 		} catch {
 			form.setError("root", {
 				message: t("contact.form.notifications.error"),
