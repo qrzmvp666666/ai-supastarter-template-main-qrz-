@@ -31,4 +31,9 @@ export interface SaasConfig {
 	 * Internal path users are sent to after logging out of the application.
 	 */
 	redirectAfterLogout: string;
+	/**
+	 * When false, the AI Chatbot menu item is hidden from the navigation sidebar.
+	 * Defaults to true when not specified.
+	 */
+	enableAiChatbot?: boolean;
 }

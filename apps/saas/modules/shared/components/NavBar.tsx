@@ -4,6 +4,7 @@ import { useSession } from "@auth/hooks/use-session";
 import { useActiveOrganization } from "@organizations/hooks/use-active-organization";
 import { config as authConfig } from "@repo/auth/config";
 import { config as paymentsConfig } from "@repo/payments/config";
+import { config } from "@config";
 import {
 	Button,
 	cn,
@@ -344,12 +345,16 @@ export function NavBar() {
 				icon: HomeIcon,
 				isActive: pathname === "/" || pathname === basePath,
 			},
-			{
-				label: t("app.menu.aiChatbot"),
-				href: "/chatbot",
-				icon: BotMessageSquareIcon,
-				isActive: pathname.startsWith("/chatbot"),
-			},
+			...(config.enableAiChatbot !== false
+				? [
+						{
+							label: t("app.menu.aiChatbot"),
+							href: "/chatbot",
+							icon: BotMessageSquareIcon,
+							isActive: pathname.startsWith("/chatbot"),
+						},
+				  ]
+				: []),
 			...(organizationSubItems
 				? [
 						{

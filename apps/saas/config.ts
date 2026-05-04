@@ -8,4 +8,5 @@ export const config = {
 	defaultTheme: "light",
 	redirectAfterSignIn: "/",
 	redirectAfterLogout: "/login",
+	enableAiChatbot: false,
 } as const satisfies SaasConfig;
