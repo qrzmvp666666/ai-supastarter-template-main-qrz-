@@ -12,7 +12,7 @@ export const config = {
 		enableOnboarding: true,
 	},
 	organizations: {
-		enable: true,
+		enable: false,
 		hideOrganization: false,
 		enableUsersToCreateOrganizations: false,
 		requireOrganization: false,
