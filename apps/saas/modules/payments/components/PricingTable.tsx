@@ -101,13 +101,7 @@ export function PricingTable({
 					</Tabs>
 				</div>
 			)}
-			<div
-				className={cn("gap-4 grid grid-cols-1", {
-					"@xl:grid-cols-2": filteredPlans.length >= 2,
-					"@3xl:grid-cols-3": filteredPlans.length >= 3,
-					"@4xl:grid-cols-4": filteredPlans.length >= 4,
-				})}
-			>
+			<div className="gap-4 grid grid-cols-3">
 				{filteredPlans.map(([planId, plan]) => {
 					const isEnterprise = "isEnterprise" in plan ? plan.isEnterprise : false;
 					const prices = "prices" in plan ? (plan as PaidPlan).prices : undefined;

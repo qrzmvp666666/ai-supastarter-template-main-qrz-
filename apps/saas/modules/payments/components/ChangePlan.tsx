@@ -1,7 +1,5 @@
 "use client";
 import { PricingTable } from "@payments/components/PricingTable";
-import { SettingsItem } from "@shared/components/SettingsItem";
-import { useTranslations } from "next-intl";
 
 export function ChangePlan({
 	organizationId,
@@ -12,18 +10,11 @@ export function ChangePlan({
 	userId?: string;
 	activePlanId?: string;
 }) {
-	const t = useTranslations();
-
 	return (
-		<SettingsItem
-			title={t("settings.billing.changePlan.title")}
-			description={t("settings.billing.changePlan.description")}
-		>
-			<PricingTable
-				organizationId={organizationId}
-				userId={userId}
-				activePlanId={activePlanId}
-			/>
-		</SettingsItem>
+		<PricingTable
+			organizationId={organizationId}
+			userId={userId}
+			activePlanId={activePlanId}
+		/>
 	);
 }
