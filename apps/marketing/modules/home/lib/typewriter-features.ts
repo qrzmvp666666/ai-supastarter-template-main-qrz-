@@ -10,7 +10,7 @@ features: FeatureItem[];
 
 export const TYPEWRITER_DATA: Record<string, LocaleFeatures> = {
 zh: {
-prefix: "用 Next.js 构建您的",
+prefix: "一小时内构建您的",
 features: [
 { title: "革命性 SaaS", subtitle: "内置多租户、认证、支付、存储一站式解决，帮您节省数周开发时间，快速验证您的产品。" },
 { title: "认证鉴权系统", subtitle: "集成 Google、GitHub、Apple 等 OAuth 登录，支持 Magic Link、Passkey 及企业级 SSO，开箱即用。" },
@@ -23,7 +23,7 @@ features: [
 ],
 },
 en: {
-prefix: "Build your next",
+prefix: "Build Your SaaS within an Hour",
 features: [
 { title: "Revolutionary SaaS", subtitle: "All-in-one: multi-tenancy, auth, payments & storage built-in. Ship your product weeks faster." },
 { title: "Authentication System", subtitle: "Google, GitHub & Apple OAuth, Magic Link, Passkeys and enterprise SSO — all ready out of the box." },
@@ -36,7 +36,7 @@ features: [
 ],
 },
 de: {
-prefix: "Baue dein",
+prefix: "In einer Stunde dein",
 features: [
 { title: "Revolutionäres SaaS", subtitle: "Alles in einem: Multi-Tenancy, Auth, Zahlungen & Speicher. Bringe dein Produkt Wochen schneller live." },
 { title: "Authentifizierungssystem", subtitle: "Google-, GitHub- & Apple-OAuth, Magic Link, Passkeys und Enterprise-SSO — alles sofort einsatzbereit." },
@@ -49,7 +49,7 @@ features: [
 ],
 },
 es: {
-prefix: "Construye tu",
+prefix: "En una hora, construye tu",
 features: [
 { title: "SaaS Revolucionario", subtitle: "Todo en uno: multi-tenancy, autenticación, pagos y almacenamiento. Lanza tu producto semanas antes." },
 { title: "Sistema de Autenticación", subtitle: "OAuth de Google, GitHub y Apple, Magic Link, Passkeys y SSO empresarial listos para usar." },
@@ -62,7 +62,7 @@ features: [
 ],
 },
 fr: {
-prefix: "Construisez votre",
+prefix: "En une heure, construisez votre",
 features: [
 { title: "SaaS Révolutionnaire", subtitle: "Tout-en-un : multi-tenant, auth, paiements et stockage intégrés. Lancez votre produit des semaines plus vite." },
 { title: "Système d'Authentification", subtitle: "OAuth Google, GitHub et Apple, Magic Link, Passkeys et SSO entreprise — prêts à l'emploi." },
