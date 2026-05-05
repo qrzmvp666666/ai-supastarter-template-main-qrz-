@@ -51,20 +51,54 @@ organizations: {
 启用组织功能后，数据库会包含以下核心表：
 
 ```
-users                  ← 用户表（独立于组织存在）
-organizations          ← 组织表（name, slug, logo 等）
-organization_members   ← 用户-组织关联（role: owner/admin/member）
-organization_invitations ← 待处理邀请（email, role, expiresAt）
+┌──────────────────────┐          ┌──────────────────────────┐
+│         user         │          │       organization        │
+├──────────────────────┤          ├──────────────────────────┤
+│ id          (PK)     │          │ id               (PK)     │
+│ name                 │          │ name                      │
+│ email                │          │ slug             (UNIQUE) │
+│ emailVerified        │          │ logo                      │
+│ createdAt            │          │ createdAt                 │
+│ updatedAt            │          │ metadata                  │
+└──────────┬───────────┘          │ paymentsCustomerId        │
+           │                      └────────┬─────────────────┘
+           │         ┌────────────────────-┘
+           │         │
+           ▼         ▼
+┌──────────────────────────────┐
+│            member             │
+├──────────────────────────────┤
+│ id             (PK)           │  role: "owner" | "admin" | "member"
+│ userId         (FK → user)    │  ┌─ 一个 user 可属于多个 organization
+│ organizationId (FK → org)     │  └─ 每个 organization 有且仅有一个 owner
+│ role                          │
+│ createdAt                     │
+└──────────────────────────────┘
+  UNIQUE(organizationId, userId)
+
+           │         │
+           │         └─────────────────────────────────┐
+           │                                            │
+           ▼                                            ▼
+┌──────────────────────────────┐    ┌──────────────────────────────────┐
+│          invitation           │    │             purchase              │
+├──────────────────────────────┤    ├──────────────────────────────────┤
+│ id             (PK)           │    │ id               (PK)             │
+│ organizationId (FK → org)     │    │ organizationId   (FK → org,  ?)   │
+│ inviterId      (FK → user)    │    │ userId           (FK → user, ?)   │
+│ email                         │    │ type  SUBSCRIPTION | ONE_TIME     │
+│ role                          │    │ customerId                        │
+│ status  pending | accepted    │    │ subscriptionId   (UNIQUE, ?)      │
+│         rejected | canceled   │    │ priceId                           │
+│ expiresAt                     │    │ status                            │
+│ createdAt                     │    │ createdAt / updatedAt             │
+└──────────────────────────────┘    └──────────────────────────────────┘
+  待处理邀请，按 email + org 索引       订阅可属于 org 或 user（两个 FK 均可空）
+
+图例：(PK) = 主键   (FK → x) = 外键级联删除   (?) = 可空
 ```
 
 ### 用户与组织关系
-
-```
-用户 ──< organization_members >── 组织
-              role: owner
-                   admin
-                   member
-```
 
 - 一个用户可属于**多个组织**
 - 每个组织有且仅有一个 **owner**
