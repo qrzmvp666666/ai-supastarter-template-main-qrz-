@@ -23,6 +23,14 @@
 	scrollbar-width: none;
 }
 
+@theme inline {
+	@keyframes border-beam {
+		100% {
+			offset-distance: 100%;
+		}
+	}
+}
+
 @layer base {
 	*,
 	::after,

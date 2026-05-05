@@ -9,6 +9,7 @@ import Image from "next/image";
 import heroImageDark from "../../../public/images/hero-image-dark.png";
 import heroImage from "../../../public/images/hero-image.png";
 import { AVATAR_PHOTO_IDS, TESTIMONIAL_KEYS } from "../lib/testimonials";
+import { BorderBeam } from "./BorderBeam";
 import { HeroTabs } from "./HeroTabs";
 import { TypewriterTitle } from "./TypewriterTitle";
 
@@ -82,7 +83,8 @@ export function HeroSection() {
 					<HeroTabs />
 				</div>
 
-				<div className="mt-4 p-2 mx-auto rounded-4xl border border-primary/10 bg-primary/5 max-w-6xl">
+				<div className="mt-4 p-2 mx-auto rounded-4xl border border-primary/10 bg-primary/5 max-w-6xl relative overflow-hidden">
+				<BorderBeam size={250} duration={10} colorFrom="#ffaa40" colorTo="#9c40ff" />
 					<Image
 						src={heroImage}
 						alt={t("home.hero.imageAlt")}
