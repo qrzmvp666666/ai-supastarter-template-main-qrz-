@@ -1,0 +1,99 @@
+---
+title: 邮件服务配置
+description: 配置事务性邮件服务，支持 Resend、Postmark、Plunk、Mailgun、Nodemailer，本地开发无需任何账号。
+---
+
+## 概述
+
+邮件系统位于 `packages/mail`，使用 React Email 编写模板，通过可插拔 Provider 发送。本地开发默认使用 Console 模式（邮件内容直接打印到终端），生产环境切换为真实服务商。
+
+## 所需工具
+
+| 工具 / 服务 | 本地开发 | 生产环境 | 说明 |
+|------------|:--------:|:--------:|------|
+| Console Provider（内置） | ✅ | — | 无需配置，邮件打印到终端 |
+| 邮件预览应用 | ✅ | — | `pnpm --filter mail-preview dev`，访问 localhost:3003 |
+| Resend | — | ✅ | 推荐，按需付费，API 简单 |
+| Postmark | — | ✅ | 适合高送达率需求 |
+| Plunk | — | ✅ | 开源可自托管 |
+| Mailgun | — | ✅ | 适合大批量发送 |
+| Nodemailer | — | ✅ | 自建 SMTP / Gmail 等 |
+
+## 切换邮件服务商
+
+编辑 `packages/mail/provider/index.ts`，将 export 指向对应 Provider：
+
+```typescript
+// 使用 Resend（默认）
+export * from "./resend";
+
+// 使用 Postmark
+export * from "./postmark";
+
+// 使用 Plunk
+export * from "./plunk";
+
+// 使用 Mailgun
+export * from "./mailgun";
+
+// 使用 Nodemailer（SMTP）
+export * from "./nodemailer";
+
+// 本地开发：打印到终端
+export * from "./console";
+```
+
+## 环境变量配置
+
+### 通用变量
+
+```dotenv
+MAIL_FROM="noreply@yourdomain.com"
+CONTACT_EMAIL="admin@yourdomain.com"
+```
+
+### Resend
+
+```dotenv
+RESEND_API_KEY="re_xxx"
+```
+
+### Postmark
+
+```dotenv
+POSTMARK_API_KEY="your-api-key"
+```
+
+### Plunk
+
+```dotenv
+PLUNK_API_KEY="your-api-key"
+```
+
+### Mailgun
+
+```dotenv
+MAILGUN_API_KEY="your-api-key"
+MAILGUN_DOMAIN="mg.yourdomain.com"
+```
+
+### Nodemailer（SMTP）
+
+```dotenv
+EMAIL_SERVER_HOST="smtp.yourhost.com"
+EMAIL_SERVER_PORT="587"
+EMAIL_SERVER_USER="your-username"
+EMAIL_SERVER_PASSWORD="your-password"
+```
+
+## 本地预览邮件模板
+
+```bash
+pnpm --filter mail-preview dev
+```
+
+访问 [http://localhost:3003](http://localhost:3003) 可实时预览所有邮件模板渲染效果。
+
+## 邮件模板位置
+
+所有模板位于 `packages/mail/emails/`，基于 React Email 编写，可直接修改 JSX 组件。

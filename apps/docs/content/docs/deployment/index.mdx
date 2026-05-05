@@ -1,0 +1,96 @@
+---
+title: 生产部署
+description: 构建应用并部署到 Vercel、Railway、Fly.io 等平台，包括数据库迁移和环境变量配置。
+---
+
+## 概述
+
+项目支持多种部署平台，`apps/saas` 和 `apps/marketing` 作为两个独立 Next.js 应用分别部署，`apps/docs` 可单独部署为文档站。
+
+## 所需工具
+
+| 工具 / 服务 | 本地开发 | 生产环境 | 说明 |
+|------------|:--------:|:--------:|------|
+| Vercel / Railway / Render 等 | — | ✅ | 选择一个部署平台 |
+| 生产数据库 | — | ✅ | Neon / Supabase / Railway PostgreSQL |
+| 邮件服务 | — | ✅ | Resend / Postmark / Plunk 等 |
+| 对象存储 | — | ✅ | R2 / S3 / Supabase Storage 等 |
+| 支付提供商账号 | — | ✅ | Stripe 等 |
+| 自定义域名 | — | ✅ | 分别为 SaaS 和营销站绑定域名 |
+
+## 构建
+
+```bash
+pnpm build
+```
+
+## 生产环境变量清单
+
+```dotenv
+# 数据库
+DATABASE_URL="postgresql://..."
+DIRECT_URL=""                         # 仅 Supabase 需要
+
+# 应用 URL
+NEXT_PUBLIC_MARKETING_URL="https://yourdomain.com"
+NEXT_PUBLIC_SAAS_URL="https://app.yourdomain.com"
+NEXT_PUBLIC_DOCS_URL="https://docs.yourdomain.com"
+
+# Auth
+BETTER_AUTH_SECRET="<32 位随机字符串>"
+GITHUB_CLIENT_ID=""
+GITHUB_CLIENT_SECRET=""
+GOOGLE_CLIENT_ID=""
+GOOGLE_CLIENT_SECRET=""
+
+# 邮件（以 Resend 为例）
+MAIL_FROM="noreply@yourdomain.com"
+CONTACT_EMAIL="admin@yourdomain.com"
+RESEND_API_KEY="re_xxx"
+
+# 支付（以 Stripe 为例）
+STRIPE_SECRET_KEY="sk_live_xxx"
+STRIPE_WEBHOOK_SECRET="whsec_xxx"
+PRICE_ID_PRO_MONTHLY="price_xxx"
+PRICE_ID_PRO_YEARLY="price_xxx"
+PRICE_ID_LIFETIME="price_xxx"
+
+# 对象存储
+S3_ACCESS_KEY_ID=""
+S3_SECRET_ACCESS_KEY=""
+S3_ENDPOINT=""
+S3_REGION=""
+NEXT_PUBLIC_AVATARS_BUCKET_NAME="avatars"
+```
+
+## Vercel 部署（推荐）
+
+1. 为 `apps/saas` 和 `apps/marketing` 分别在 Vercel 创建项目
+2. 在 **Settings → Environment Variables** 填入对应变量
+3. 推送到 `main` 分支自动触发部署
+
+## Railway 部署
+
+1. 创建项目并连接 Git 仓库
+2. 设置 Root Directory 为 `apps/saas`
+3. 使用 Railway 内置 PostgreSQL 插件生成 `DATABASE_URL`
+4. 在 Variables 面板填入其余变量
+
+## 支持平台一览
+
+| 平台 | 特点 |
+|------|------|
+| **Vercel** | 零配置，推荐首选 |
+| **Railway** | 内置数据库，全栈一体 |
+| **Render** | 支持 Node.js + Docker |
+| **Fly.io** | 全球边缘节点 |
+| **Coolify** | 开源自托管 PaaS |
+| **Docker** | 完全自托管 |
+
+## 数据库迁移（部署时）
+
+```bash
+DATABASE_URL="your-prod-db-url" pnpm --filter @repo/database migrate
+```
+
+建议在 CI/CD 部署步骤中自动运行。

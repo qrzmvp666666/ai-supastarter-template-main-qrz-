@@ -1,0 +1,39 @@
+---
+title: 数据库
+description: 数据库配置、ORM 选择和迁移管理。
+---
+
+## 概述
+
+项目使用 **Prisma**（默认）或 **Drizzle** ORM，支持 PostgreSQL、MySQL 和 SQLite。Schema 和迁移命令位于 `packages/database`。
+
+## 所需工具
+
+| 工具 / 服务 | 本地开发 | 生产环境 | 说明 |
+|------------|:--------:|:--------:|------|
+| Docker | ✅ | — | 运行本地 PostgreSQL |
+| Prisma CLI（内置） | ✅ | ✅ | Schema 管理和迁移 |
+| PostgreSQL（云服务） | — | ✅ | Neon / Supabase / Railway 等 |
+| `DATABASE_URL` | ✅ | ✅ | 本地指向 Docker，生产指向云服务 |
+| `DIRECT_URL` | — | ✅ | 仅 Supabase 需要（绕过连接池） |
+
+## 本地数据库
+
+使用 Docker 启动本地 PostgreSQL：
+
+```bash
+docker compose up -d
+```
+
+```dotenv
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/supastarter"
+```
+
+## 生产数据库推荐
+
+| 服务 | 特点 |
+|------|------|
+| **Neon** | Serverless PostgreSQL，免费套餐充足 |
+| **Supabase** | 附带存储、Auth，生态完整 |
+| **Railway** | 一键部署，内置数据库 |
+| **PlanetScale** | MySQL 兼容，分支功能强大 |

@@ -1,0 +1,95 @@
+---
+title: 快速开始
+description: 环境准备、克隆项目、安装依赖，5 分钟跑起本地环境。
+---
+
+## 概述
+
+本节带你完成从零到本地运行的完整流程，包括依赖安装、Docker 服务启动、环境变量配置和数据库初始化。
+
+## 所需工具
+
+| 工具 | 本地开发 | 生产环境 | 说明 |
+|------|:--------:|:--------:|------|
+| Node.js ≥ 20 | ✅ | ✅ | JS 运行时 |
+| pnpm ≥ 10 | ✅ | ✅ | 包管理器 |
+| Docker | ✅ | — | 本地数据库和存储 |
+| Git | ✅ | ✅ | 版本控制 |
+| PostgreSQL | — | ✅ | 生产数据库（Neon/Supabase/Railway 等） |
+
+## 克隆项目 & 安装依赖
+
+```bash
+git clone <your-repo-url> my-saas
+cd my-saas
+pnpm install
+```
+
+## 启动 Docker 本地服务
+
+项目内置 `docker-compose.yml`，一键启动 **PostgreSQL** 和 **MinIO**（S3 兼容对象存储）：
+
+```bash
+docker compose up -d
+```
+
+| 服务 | 地址 | 说明 |
+|------|------|------|
+| PostgreSQL | `localhost:5432` | 用户名/密码均为 `postgres` |
+| MinIO S3 API | `localhost:9000` | 对象存储接口 |
+| MinIO 控制台 | `localhost:9001` | 账号 `minioadmin` / `minioadmin` |
+
+> MinIO 启动时会自动创建 `avatars` bucket 并设置公开读权限。
+
+## 配置环境变量
+
+```bash
+cp .env.local.example .env
+```
+
+本地开发最小配置：
+
+```dotenv
+# 数据库（Docker）
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/supastarter"
+
+# 应用 URL
+NEXT_PUBLIC_MARKETING_URL="http://localhost:3001"
+NEXT_PUBLIC_SAAS_URL="http://localhost:3000"
+NEXT_PUBLIC_DOCS_URL="http://localhost:3002"
+
+# Auth 密钥
+BETTER_AUTH_SECRET="your-random-secret-here"
+
+# 邮件（本地打印到终端，无需真实服务）
+MAIL_FROM="noreply@localhost"
+CONTACT_EMAIL="admin@localhost"
+
+# 存储（Docker MinIO）
+S3_ACCESS_KEY_ID="minioadmin"
+S3_SECRET_ACCESS_KEY="minioadmin"
+S3_ENDPOINT="http://localhost:9000"
+S3_REGION="us-east-1"
+NEXT_PUBLIC_AVATARS_BUCKET_NAME="avatars"
+```
+
+## 迁移数据库
+
+```bash
+pnpm --filter @repo/database generate
+pnpm --filter @repo/database push
+```
+
+## 启动开发服务
+
+```bash
+pnpm dev
+```
+
+| 服务 | 地址 |
+|------|------|
+| SaaS 应用 | http://localhost:3000 |
+| 营销站点 | http://localhost:3001 |
+| 文档站 | http://localhost:3002 |
+| 邮件预览 | http://localhost:3003 |
+| MinIO 控制台 | http://localhost:9001 |

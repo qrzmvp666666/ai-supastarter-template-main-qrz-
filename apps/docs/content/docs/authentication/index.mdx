@@ -1,0 +1,86 @@
+---
+title: 认证配置
+description: 配置 Better Auth，包括 OAuth 社交登录、Magic Link、Passkey 等认证方式。
+---
+
+## 概述
+
+认证由 [Better Auth](https://better-auth.com) 驱动，配置文件位于 `packages/auth/config.ts`。支持邮箱密码、Magic Link、OAuth 社交登录、Passkey 和双因素认证。
+
+## 所需工具
+
+| 工具 / 服务 | 本地开发 | 生产环境 | 说明 |
+|------------|:--------:|:--------:|------|
+| Better Auth（内置） | ✅ | ✅ | 无需额外安装 |
+| GitHub OAuth App | — | ✅ | 启用 GitHub 登录时需要 |
+| Google OAuth 凭据 | — | ✅ | 启用 Google 登录时需要 |
+| SMTP / 邮件服务 | — | ✅ | Magic Link 和验证邮件发送 |
+| `BETTER_AUTH_SECRET` 环境变量 | ✅ | ✅ | 本地随机字符串即可 |
+
+## 功能开关
+
+```typescript
+// packages/auth/config.ts
+export const config = {
+  enableSignup: true,        // 是否开放注册
+  enableMagicLink: true,     // Magic Link 邮件登录
+  enableSocialLogin: true,   // OAuth 社交登录
+  enablePasskeys: true,      // Passkey（生物识别）
+  enablePasswordLogin: true, // 邮箱密码登录
+  enableTwoFactor: true,     // 双因素认证（2FA）
+  organizations: {
+    enable: false,           // 是否启用多租户组织功能
+  },
+};
+```
+
+## OAuth 社交登录
+
+### 配置 GitHub OAuth
+
+1. 访问 [GitHub Developer Settings](https://github.com/settings/developers) 创建 OAuth App
+2. 回调地址：
+   - 本地：`http://localhost:3000/api/auth/callback/github`
+   - 生产：`https://app.yourdomain.com/api/auth/callback/github`
+3. 填入环境变量：
+
+```dotenv
+GITHUB_CLIENT_ID="your-github-client-id"
+GITHUB_CLIENT_SECRET="your-github-client-secret"
+```
+
+### 配置 Google OAuth
+
+1. 访问 [Google Cloud Console](https://console.cloud.google.com) 创建 OAuth 2.0 凭据
+2. 授权回调地址：
+   - 本地：`http://localhost:3000/api/auth/callback/google`
+   - 生产：`https://app.yourdomain.com/api/auth/callback/google`
+3. 填入环境变量：
+
+```dotenv
+GOOGLE_CLIENT_ID="your-google-client-id"
+GOOGLE_CLIENT_SECRET="your-google-client-secret"
+```
+
+## Auth 密钥
+
+```bash
+# 生成随机密钥
+openssl rand -base64 32
+```
+
+```dotenv
+BETTER_AUTH_SECRET="生成的随机字符串"
+```
+
+## 多租户组织
+
+若需启用组织功能，修改 `packages/auth/config.ts`：
+
+```typescript
+organizations: {
+  enable: true,
+  enableUsersToCreateOrganizations: true,
+  requireOrganization: false,
+},
+```

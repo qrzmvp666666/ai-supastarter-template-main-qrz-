@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { LLMCopyButton } from "@/components/ai/page-actions";
-import { getPageImage, source } from "@/lib/source";
+import { getLLMText, getPageImage, source } from "@/lib/source";
 import { getMDXComponents } from "@/mdx-components";
 
 export default async function Page(props: PageProps<"/[[...slug]]">) {
@@ -16,13 +16,14 @@ export default async function Page(props: PageProps<"/[[...slug]]">) {
 	}
 
 	const MDX = page.data.body;
+	const markdownContent = await getLLMText(page);
 
 	return (
 		<DocsPage toc={page.data.toc} full={page.data.full}>
 			<DocsTitle>{page.data.title}</DocsTitle>
 			<DocsDescription className="mb-0">{page.data.description}</DocsDescription>
 			<div className="gap-2 pb-6 flex flex-row items-center border-b">
-				<LLMCopyButton markdownUrl={`${page.url}.mdx`} />
+				<LLMCopyButton markdownContent={markdownContent} />
 			</div>
 			<DocsBody>
 				<MDX

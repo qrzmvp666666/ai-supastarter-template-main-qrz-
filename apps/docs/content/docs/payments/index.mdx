@@ -1,0 +1,84 @@
+---
+title: 支付配置
+description: 配置支付提供商，包括 Stripe、Lemon Squeezy、Polar、Creem 和 Dodo Payments。
+---
+
+## 概述
+
+项目支持 5 个支付提供商，**同时只能激活一个**。切换方式是修改 `packages/payments/provider/index.ts`。
+
+## 所需工具
+
+| 工具 / 服务 | 本地开发 | 生产环境 | 说明 |
+|------------|:--------:|:--------:|------|
+| 支付提供商账号 | — | ✅ | 选择一个注册账号 |
+| Stripe CLI | ✅ | — | 本地 Webhook 转发测试 |
+| ngrok | ✅ | — | 非 Stripe 提供商的 Webhook 本地测试 |
+| Webhook 端点配置 | — | ✅ | 在提供商后台配置回调地址 |
+| Price ID | ✅ | ✅ | 在提供商后台创建产品后获取 |
+
+## 切换支付提供商
+
+编辑 `packages/payments/provider/index.ts`，只保留一行 export：
+
+```typescript
+export * from "./stripe";        // Stripe（默认）
+// export * from "./lemonsqueezy";
+// export * from "./polar";
+// export * from "./creem";
+// export * from "./dodopayments";
+```
+
+## 各提供商环境变量
+
+### Stripe
+```dotenv
+STRIPE_SECRET_KEY="sk_live_xxx"
+STRIPE_WEBHOOK_SECRET="whsec_xxx"
+```
+
+### Lemon Squeezy
+```dotenv
+LEMONSQUEEZY_API_KEY="xxx"
+LEMONSQUEEZY_WEBHOOK_SECRET="xxx"
+LEMONSQUEEZY_STORE_ID="xxx"
+```
+
+### Polar
+```dotenv
+POLAR_ACCESS_TOKEN="xxx"
+POLAR_WEBHOOK_SECRET="xxx"
+```
+
+### Creem
+```dotenv
+CREEM_API_KEY="xxx"
+CREEM_WEBHOOK_SECRET="xxx"
+```
+
+### Dodo Payments
+```dotenv
+DODO_PAYMENTS_API_KEY="xxx"
+```
+
+## 配置价格 ID
+
+```dotenv
+PRICE_ID_PRO_MONTHLY="price_xxx"   # 月付 Pro 套餐
+PRICE_ID_PRO_YEARLY="price_xxx"    # 年付 Pro 套餐
+PRICE_ID_LIFETIME="price_xxx"      # 终身授权（一次性）
+```
+
+套餐名称、金额、试用天数等在 `packages/payments/config.ts` 中配置。
+
+## Webhook 配置
+
+生产回调地址：
+```
+https://app.yourdomain.com/api/webhooks/payments
+```
+
+### 本地测试（Stripe CLI）
+```bash
+stripe listen --forward-to localhost:3000/api/webhooks/payments
+```

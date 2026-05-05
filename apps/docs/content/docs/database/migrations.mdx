@@ -1,0 +1,58 @@
+---
+title: 数据库迁移
+description: 使用 Prisma 管理数据库 Schema 和迁移命令详解。
+---
+
+## 本地开发
+
+### 1. 生成 Prisma Client
+
+每次修改 `schema.prisma` 后需重新生成：
+
+```bash
+pnpm --filter @repo/database generate
+```
+
+### 2. 快速同步（开发阶段）
+
+```bash
+pnpm --filter @repo/database push
+```
+
+无迁移文件，适合频繁改动的早期开发阶段。
+
+### 3. 创建迁移文件（推荐）
+
+```bash
+pnpm --filter @repo/database migrate
+```
+
+生成可追踪的迁移文件，适合团队协作和生产部署。
+
+### 4. Prisma Studio
+
+```bash
+pnpm --filter @repo/database studio
+# 访问 http://localhost:5555
+```
+
+## 生产环境迁移
+
+生产环境**必须使用迁移文件**（而非 `db push`）：
+
+```bash
+DATABASE_URL="your-production-db-url" pnpm --filter @repo/database migrate
+```
+
+建议在 CI/CD 部署步骤中自动执行。
+
+## Supabase 特殊配置
+
+Supabase 提供连接池，迁移时需直连地址：
+
+```dotenv
+# 连接池（应用运行时）
+DATABASE_URL="postgresql://postgres.xxx:password@region.pooler.supabase.com:6543/postgres"
+# 直连（迁移时用）
+DIRECT_URL="postgresql://postgres.xxx:password@region.supabase.com:5432/postgres"
+```

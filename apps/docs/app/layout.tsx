@@ -15,12 +15,19 @@ export default function Layout({ children }: LayoutProps<"/">) {
 	return (
 		<html lang="en" className={inter.className} suppressHydrationWarning>
 			<body className="flex min-h-screen flex-col">
-				<RootProvider>
+				<RootProvider
+					search={{
+						options: {
+							api: "/api/search",
+						},
+					}}
+				>
 					<DocsLayout
 						tree={source.getPageTree()}
 						nav={{
 							title: <Logo />,
 						}}
+						sidebar={{ collapsible: true }}
 					>
 						{children}
 					</DocsLayout>

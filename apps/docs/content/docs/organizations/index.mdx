@@ -1,0 +1,110 @@
+---
+title: 多租户与组织
+description: 了解项目的多租户架构，如何启用组织功能、管理成员和权限，以及相关配置选项。
+---
+
+## 概述
+
+本项目内置基于 **Better Auth** 的多租户（Multi-Tenant）支持。每个"组织"（Organization）对应一个独立租户，用户可同时属于多个组织并在组织间切换。功能默认关闭，通过 `packages/auth/config.ts` 一键开启。
+
+## 所需工具
+
+| 工具 / 服务 | 本地开发 | 生产环境 | 说明 |
+|------------|:--------:|:--------:|------|
+| PostgreSQL（含组织表） | ✅ | ✅ | 迁移后自动创建 organizations、members、invitations 表 |
+| 邮件服务 | ✅ | ✅ | 发送成员邀请邮件 |
+| `packages/auth/config.ts` | ✅ | ✅ | 主配置开关文件 |
+
+## 启用组织功能
+
+编辑 `packages/auth/config.ts`：
+
+```typescript
+organizations: {
+  enable: true,                              // 开启多租户
+  hideOrganization: false,                   // 是否隐藏组织切换 UI
+  enableUsersToCreateOrganizations: true,    // 允许普通用户创建组织
+  requireOrganization: false,               // 登录后强制进入组织
+  forbiddenOrganizationSlugs: [
+    "new-organization",
+    "admin",
+    "settings",
+    // 保留的系统路由，避免冲突
+  ],
+},
+```
+
+修改后重启开发服务器生效。
+
+## 配置项说明
+
+| 配置项 | 类型 | 默认值 | 说明 |
+|--------|------|:------:|------|
+| `enable` | boolean | `false` | 是否启用组织/多租户功能 |
+| `hideOrganization` | boolean | `false` | 隐藏侧边栏组织切换 UI |
+| `enableUsersToCreateOrganizations` | boolean | `false` | 允许普通用户自建组织 |
+| `requireOrganization` | boolean | `false` | 登录后强制要求加入组织 |
+| `forbiddenOrganizationSlugs` | string[] | 见代码 | 禁用的 slug，防止与系统路由冲突 |
+
+## 数据模型
+
+启用组织功能后，数据库会包含以下核心表：
+
+```
+users                  ← 用户表（独立于组织存在）
+organizations          ← 组织表（name, slug, logo 等）
+organization_members   ← 用户-组织关联（role: owner/admin/member）
+organization_invitations ← 待处理邀请（email, role, expiresAt）
+```
+
+### 用户与组织关系
+
+```
+用户 ──< organization_members >── 组织
+              role: owner
+                   admin
+                   member
+```
+
+- 一个用户可属于**多个组织**
+- 每个组织有且仅有一个 **owner**
+- `admin` 可管理成员、修改组织信息
+- `member` 仅可访问组织数据
+
+## UI 组件
+
+组织相关组件位于 `apps/saas/modules/organizations/components/`：
+
+| 组件 | 说明 |
+|------|------|
+| `OrganizationSelect` | 组织切换下拉框 |
+| `CreateOrganizationForm` | 创建组织表单 |
+| `OrganizationMembersList` | 成员列表 |
+| `InviteMemberForm` | 邀请成员表单 |
+| `OrganizationInvitationAlert` | 邀请提示横幅 |
+| `OrganizationLogo` / `OrganizationLogoForm` | 组织 Logo 展示与上传 |
+| `DeleteOrganizationForm` | 删除组织 |
+
+## Hooks
+
+```typescript
+import { useActiveOrganization } from "@organizations/hooks/use-active-organization";
+
+export function MyComponent() {
+  const { activeOrganization, isOrganizationAdmin } = useActiveOrganization();
+
+  if (!isOrganizationAdmin) return <p>无权限</p>;
+  // ...
+}
+```
+
+## 数据隔离
+
+多租户数据隔离通过 API 层实现——每个 oRPC 请求均携带当前 `organizationId`，服务端在查询时自动过滤，确保租户间数据不泄漏。
+
+## 邀请流程
+
+1. Admin 在"成员管理"页面填写被邀请人邮件及角色
+2. 系统发送邀请邮件（含接受链接）
+3. 被邀请人点击链接 → 注册/登录 → 自动加入组织
+4. 邀请链接有时效（默认 48 小时）

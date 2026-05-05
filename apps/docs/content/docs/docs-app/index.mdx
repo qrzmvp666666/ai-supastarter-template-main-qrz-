@@ -1,0 +1,88 @@
+---
+title: 文档配置
+description: 如何在本地开发、构建和预览文档站，以及搜索等功能的注意事项。
+---
+
+文档站基于 [fumadocs](https://fumadocs.vercel.app/) 构建，是一个独立的 Next.js 应用，位于 `apps/docs`。
+
+## 开发模式
+
+```bash
+pnpm --filter docs dev
+```
+
+默认运行在 **http://localhost:3002**。
+
+> **注意：** 开发模式下，搜索（⌘K）和部分 UI 功能（如侧边栏折叠）**无法正常使用**，这是 fumadocs 开发模式的已知限制。
+
+## 完整预览（推荐）
+
+搜索、折叠等功能需要先构建再预览：
+
+```bash
+# 第一步：构建
+pnpm --filter docs build
+
+# 第二步：启动（docs 默认端口 3000，需指定其他端口避免冲突）
+cd apps/docs && npx next start -p 3004
+```
+
+访问 **http://localhost:3004** 即可体验完整功能。
+
+## 内容结构
+
+文档内容位于 `apps/docs/content/docs/`，每个目录对应侧边栏一个分组：
+
+```
+content/docs/
+├── index.mdx              # 文档首页
+├── meta.json              # 根目录侧边栏顺序配置
+├── getting-started/
+│   └── index.mdx          # 快速开始
+├── authentication/
+│   └── index.mdx          # 认证配置
+├── payments/
+│   └── index.mdx          # 支付配置
+├── database/
+│   ├── index.mdx          # 数据库概述
+│   └── migrations.mdx     # 迁移命令详情
+├── storage/
+│   └── index.mdx          # 对象存储
+└── deployment/
+    └── index.mdx          # 生产部署
+```
+
+## 新增文档页面
+
+在对应目录下创建 `.mdx` 文件：
+
+```mdx
+---
+title: 页面标题
+description: 页面描述，也用于 SEO meta
+---
+
+正文内容...
+```
+
+目录内的 `index.mdx` 是该分组的入口页面，点击侧边栏分组名称时跳转到此页。
+
+## 控制侧边栏顺序
+
+在根目录 `meta.json` 中配置各分组的显示顺序：
+
+```json
+{
+  "pages": ["index", "getting-started", "authentication", "payments", "database", "storage", "deployment"]
+}
+```
+
+## 部署文档站
+
+文档站可以独立部署，与 SaaS 应用互不影响：
+
+```bash
+pnpm --filter docs build
+```
+
+部署到 Vercel 时，将 Root Directory 设置为 `apps/docs`，Vercel 会自动识别 Next.js 项目。
