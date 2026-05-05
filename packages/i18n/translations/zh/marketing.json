@@ -1,0 +1,249 @@
+{
+  "blog": {
+    "description": "阅读我们公司的最新动态",
+    "title": "博客",
+    "back": "返回博客"
+  },
+  "changelog": {
+    "description": "随时了解我们产品的最新变化。",
+    "title": "更新日志"
+  },
+  "contact": {
+    "description": "我们随时为您提供帮助。请使用以下表单与我们联系。",
+    "form": {
+      "email": "邮箱",
+      "message": "留言",
+      "name": "姓名",
+      "notifications": {
+        "error": "抱歉，我们无法发送您的消息。请稍后重试。",
+        "success": "您的消息已成功发送。我们会尽快回复您。"
+      },
+      "submit": "发送消息"
+    },
+    "title": "联系我们"
+  },
+  "documentation": {
+    "title": "文档"
+  },
+  "faq": {
+    "description": "有任何疑问？我们为您解答。",
+    "title": "常见问题",
+    "items": {
+      "refundPolicy": {
+        "question": "退款政策是什么？",
+        "answer": "如果您对我们的产品不满意，我们提供30天退款保证。"
+      },
+      "cancelSubscription": {
+        "question": "如何取消订阅？",
+        "answer": "您可以在账单页面随时取消订阅。"
+      },
+      "changePlan": {
+        "question": "我可以更改套餐吗？",
+        "answer": "是的，您可以在账单页面随时更改套餐。"
+      },
+      "freeTrial": {
+        "question": "是否提供免费试用？",
+        "answer": "是的，我们提供14天免费试用。"
+      },
+      "whatIsShipAny": {
+        "question": "这个产品是什么？",
+        "answer": "这是一个用于快速构建 AI SaaS 项目的开发框架，内置丰富的功能模块和业务组件，开箱即用，帮助您快速上线网站。"
+      },
+      "noCode": {
+        "question": "不懂编程可以使用吗？",
+        "answer": "本产品主要面向有一定开发经验的用户。如果您熟悉基本的 Web 开发概念，即可快速上手。"
+      },
+      "whatCanBuild": {
+        "question": "可以用它构建什么类型的 AI SaaS？",
+        "answer": "您可以构建 AI 写作工具、AI 图像生成、AI 聊天机器人、订阅制 SaaS 等各类产品，支持多租户、支付、认证等核心功能。"
+      },
+      "howLong": {
+        "question": "使用本框架开发项目需要多久？",
+        "answer": "得益于丰富的预构建模块，大多数开发者可以在几天到一周内完成 MVP 上线，相比从零开始节省数月开发时间。"
+      },
+      "infrastructure": {
+        "question": "基础设施包括哪些？",
+        "answer": "框架集成了认证、数据库、支付、邮件、存储、国际化、管理后台等完整基础设施，开箱即用。"
+      },
+      "customization": {
+        "question": "有哪些自定义功能？",
+        "answer": "所有代码完全开放，您可以自由修改主题、UI 组件、业务逻辑，以及集成任意第三方服务。"
+      }
+    },
+    "contactEmailLabel": "有任何问题，可以给我们发邮件：",
+    "contactDiscordLabel": "或者通过以下方式联系我们："
+  },
+  "home": {
+    "hero": {
+      "new": "新功能：",
+      "featureBadge": "为您的 SaaS 带来的惊人特性",
+      "title": "用 Next.js 构建您的革命性 SaaS",
+      "subtitle": "这是一个用 supastarter 构建的演示应用。它能帮您节省大量时间和精力，快速搭建您的下一个 SaaS。",
+      "getStarted": "立即开始",
+      "documentation": "查看文档",
+      "imageAlt": "我们的应用",
+      "builtWith": "使用这些出色工具构建并发布",
+      "tabs": {
+        "multiTenant": "多租户与组织",
+        "database": "数据库",
+        "storage": "对象存储",
+        "auth": "认证鉴权",
+        "payment": "支付配置",
+        "blog": "博客配置",
+        "docs": "文档配置",
+        "seo": "SEO配置",
+        "deploy": "生产部署",
+        "analytics": "数据分析"
+      },
+      "socialProof": "999+ 用户使用 ShipAny 构建网站"
+    },
+    "features": {
+      "badge": "强大功能",
+      "title": "您的客户会喜爱的功能",
+      "description": "在此展示您的 SaaS 提供的所有功能，以及它们如何使您的客户受益。",
+      "feature1": {
+        "title": "功能一",
+        "subtitle": "借助我们出色的 SaaS 实现更多。",
+        "description": "这是一个绝妙的功能。以下是一些原因，这里基本上只是示例文本。",
+        "benefit1": {
+          "title": "优势一",
+          "description": "这是一个很棒的优势。以下是一些原因，这里基本上只是示例文本。"
+        },
+        "benefit2": {
+          "title": "优势二",
+          "description": "这是一个很棒的优势。以下是一些原因，这里基本上只是示例文本。"
+        },
+        "benefit3": {
+          "title": "优势三",
+          "description": "这是一个很棒的优势。以下是一些原因，这里基本上只是示例文本。"
+        }
+      },
+      "feature2": {
+        "title": "功能二",
+        "subtitle": "您的 SaaS 还能做到这些。",
+        "description": "另一个功能的示例文本。",
+        "benefit1": {
+          "title": "优势一",
+          "description": "这是一个很棒的优势。以下是一些原因，这里基本上只是示例文本。"
+        },
+        "benefit2": {
+          "title": "优势二",
+          "description": "这是一个很棒的优势。以下是一些原因，这里基本上只是示例文本。"
+        },
+        "benefit3": {
+          "title": "优势三",
+          "description": "这是一个很棒的优势。以下是一些原因，这里基本上只是示例文本。"
+        }
+      }
+    },
+    "earlyAccess": {
+      "title": "立即开始构建您的 AI SaaS",
+      "subtitle": "从这里开始，借助 supastarter 快速发布您的产品。",
+      "getStarted": "立即开始",
+      "readDocs": "阅读文档"
+    },
+    "testimonials": {
+      "title": "用户评价",
+      "subtitle": "来自真实用户的声音",
+      "items": {
+        "andy": {
+          "quote": "Next.js 的速度 + 便捷的支付生态 + 开箱即用的AI能力 + 让我来不及学习的各种能力迭代，让这个框架成为了 AI 时代最接近 WordPress 的存在",
+          "name": "Andy",
+          "role": "上市公司产品总监",
+          "initials": "An"
+        },
+        "blank": {
+          "quote": "缩短了从想法到产品的过程，其插件架构能快速扩展功能，基于配置的方法最大限度地减少代码更改，非常适合快速推出 SaaS 产品。",
+          "name": "blank",
+          "role": "AITDK 作者",
+          "initials": "bl"
+        },
+        "corey": {
+          "quote": "可以说是最适合 Vibe Coding 的模板，对 AI 非常友好的架构，用 AI 编程简单几轮对话就可以用它快速上线一个产品 MVP，让想法落地。",
+          "name": "Corey",
+          "role": "独立开发者",
+          "initials": "Co"
+        },
+        "gefei": {
+          "quote": "恭喜迭代到了 V2 版本了，我们群里不少朋友在我的安利下都用上站了，而且还有不少朋友拿到了不错的排名，拿到了流量，赚到了钱。做出海 SaaS 网站，如果自己从头开始搞一个，几个月时间可能就过去了，用这个上站，可以节省时间，早一点去搞流量，也就能早一点变现。",
+          "name": "哥飞",
+          "role": "出海社群创始人",
+          "initials": "GF"
+        },
+        "james": {
+          "quote": "帮助我实现了从产品经理转型到全栈开发者的目标，我用它做了好几个出海网站，这些网站一直给我带来源源不断的收入。",
+          "name": "James",
+          "role": "产品经理",
+          "initials": "Ja"
+        },
+        "justDoIt": {
+          "quote": "最近，我使用这个框架构建了一个网站，速度超乎想象（30 分钟内）。整个旅程顺利进行，我没想到网站会这么快建成！",
+          "name": "JustDoIt",
+          "role": "技术管理",
+          "initials": "JD"
+        }
+      }
+    }
+  },
+  "newsletter": {
+    "email": "邮箱",
+    "hints": {
+      "error": {
+        "message": "订阅失败，请稍后重试。"
+      },
+      "success": {
+        "message": "感谢您订阅我们的邮件列表，我们会及时通知您。",
+        "title": "订阅成功"
+      }
+    },
+    "submit": "订阅",
+    "subtitle": "抢先获取 supastarter.nextjs 的访问权限。",
+    "title": "抢先体验"
+  },
+  "notFound": {
+    "code": "404",
+    "title": "页面未找到",
+    "goToDashboard": "前往控制台",
+    "goToHomepage": "返回首页"
+  },
+  "common": {
+    "footer": {
+      "blog": "博客",
+      "features": "特性",
+      "pricing": "定价",
+      "privacyPolicy": "隐私政策",
+      "termsAndConditions": "服务条款",
+      "builtWith": "由 supastarter 构建",
+      "description": "现代化的 SaaS 启动套件，基于 Next.js 构建。使用预构建模块和组件更快地发布产品。",
+      "featuresTitle": "特性",
+      "resourcesTitle": "资源",
+      "legalTitle": "法律",
+      "docs": "文档",
+      "changelog": "更新日志",
+      "contact": "联系我们",
+      "allRightsReserved": "保留所有权利"
+    },
+    "menu": {
+      "blog": "博客",
+      "changelog": "更新日志",
+      "contact": "联系我们",
+      "dashboard": "控制台",
+      "docs": "文档",
+      "faq": "常见问题",
+      "login": "登录",
+      "pricing": "定价"
+    },
+    "aria": {
+      "menu": "菜单",
+      "language": "语言"
+    },
+    "tableOfContents": {
+      "title": "本页目录"
+    },
+    "colorMode": {
+      "system": "系统",
+      "light": "浅色",
+      "dark": "深色"
+    }
+  }
+}

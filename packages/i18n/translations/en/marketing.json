@@ -1,154 +1,249 @@
 {
-	"blog": {
-		"description": "Read the latest news from our company",
-		"title": "My awesome blog",
-		"back": "Back to blog"
-	},
-	"changelog": {
-		"description": "Stay up to date with the latest changes in our product.",
-		"title": "Changelog"
-	},
-	"contact": {
-		"description": "We are here to help you. Please use the form below to get in touch with us.",
-		"form": {
-			"email": "Email",
-			"message": "Message",
-			"name": "Name",
-			"notifications": {
-				"error": "We are sorry, but we were unable to send your message. Please try again later.",
-				"success": "Your message has been sent successfully. We will get back to you as soon as possible."
-			},
-			"submit": "Send message"
-		},
-		"title": "Contact us"
-	},
-	"documentation": {
-		"title": "Documentation"
-	},
-	"faq": {
-		"description": "Do you have any questions? We have got you covered.",
-		"title": "Frequently asked questions",
-		"items": {
-			"refundPolicy": {
-				"question": "What is the refund policy?",
-				"answer": "We offer a 30-day money-back guarantee if you're not happy with our product."
-			},
-			"cancelSubscription": {
-				"question": "How do I cancel my subscription?",
-				"answer": "You can cancel your subscription by visiting the billing page."
-			},
-			"changePlan": {
-				"question": "Can I change my plan?",
-				"answer": "Yes, you can change your plan at any time by visiting the billing page."
-			},
-			"freeTrial": {
-				"question": "Do you offer a free trial?",
-				"answer": "Yes, we offer a 14-day free trial."
-			}
-		}
-	},
-	"home": {
-		"hero": {
-			"new": "New:",
-			"featureBadge": "Amazing feature of your SaaS",
-			"title": "Your revolutionary SaaS built with Next.js",
-			"subtitle": "This is a demo application built with supastarter. It will save you a lot of time and effort building your next SaaS.",
-			"getStarted": "Get started",
-			"documentation": "Documentation",
-			"imageAlt": "Our application",
-			"builtWith": "Built & shipped with these awesome tools"
-		},
-		"features": {
-			"badge": "Incredible features",
-			"title": "Features your clients will love",
-			"description": "In this section you can showcase all the features of your SaaS provides and how they can benefit your clients.",
-			"feature1": {
-				"title": "Feature 1",
-				"subtitle": "Do more with our amazing SaaS.",
-				"description": "This is a brilliant feature. And below you can see some reasons why. This is basically just a dummy text.",
-				"benefit1": {
-					"title": "Benefit 1",
-					"description": "This is an awesome benefit. And below you can see some reasons why. This is basically just a dummy text."
-				},
-				"benefit2": {
-					"title": "Benefit 2",
-					"description": "This is an awesome benefit. And below you can see some reasons why. This is basically just a dummy text."
-				},
-				"benefit3": {
-					"title": "Benefit 3",
-					"description": "This is an awesome benefit. And below you can see some reasons why. This is basically just a dummy text."
-				}
-			},
-			"feature2": {
-				"title": "Feature 2",
-				"subtitle": "Your SaaS can also do this.",
-				"description": "Another dummy text for another feature.",
-				"benefit1": {
-					"title": "Benefit 1",
-					"description": "This is an awesome benefit. And below you can see some reasons why. This is basically just a dummy text."
-				},
-				"benefit2": {
-					"title": "Benefit 2",
-					"description": "This is an awesome benefit. And below you can see some reasons why. This is basically just a dummy text."
-				},
-				"benefit3": {
-					"title": "Benefit 3",
-					"description": "This is an awesome benefit. And below you can see some reasons why. This is basically just a dummy text."
-				}
-			}
-		}
-	},
-	"newsletter": {
-		"email": "Email",
-		"hints": {
-			"error": {
-				"message": "Could not subscribe to newsletter. Please try again later."
-			},
-			"success": {
-				"message": "Thank you for subscribing to our newsletter. We will keep you posted.",
-				"title": "Subscribed"
-			}
-		},
-		"submit": "Subscribe",
-		"subtitle": "Be among the first to get access to supastarter.nextjs.",
-		"title": "Get early access"
-	},
-	"notFound": {
-		"code": "404",
-		"title": "Page not found",
-		"goToDashboard": "Go to dashboard",
-		"goToHomepage": "Go to homepage"
-	},
-	"common": {
-		"footer": {
-			"blog": "Blog",
-			"features": "Features",
-			"pricing": "Pricing",
-			"privacyPolicy": "Privacy policy",
-			"termsAndConditions": "Terms and conditions",
-			"builtWith": "Built with supastarter"
-		},
-		"menu": {
-			"blog": "Blog",
-			"changelog": "Changelog",
-			"contact": "Contact",
-			"dashboard": "Dashboard",
-			"docs": "Docs",
-			"faq": "FAQ",
-			"login": "Login",
-			"pricing": "Pricing"
-		},
-		"aria": {
-			"menu": "Menu",
-			"language": "Language"
-		},
-		"tableOfContents": {
-			"title": "On this page"
-		},
-		"colorMode": {
-			"system": "System",
-			"light": "Light",
-			"dark": "Dark"
-		}
-	}
+  "blog": {
+    "description": "Read the latest news from our company",
+    "title": "My awesome blog",
+    "back": "Back to blog"
+  },
+  "changelog": {
+    "description": "Stay up to date with the latest changes in our product.",
+    "title": "Changelog"
+  },
+  "contact": {
+    "description": "We are here to help you. Please use the form below to get in touch with us.",
+    "form": {
+      "email": "Email",
+      "message": "Message",
+      "name": "Name",
+      "notifications": {
+        "error": "We are sorry, but we were unable to send your message. Please try again later.",
+        "success": "Your message has been sent successfully. We will get back to you as soon as possible."
+      },
+      "submit": "Send message"
+    },
+    "title": "Contact us"
+  },
+  "documentation": {
+    "title": "Documentation"
+  },
+  "faq": {
+    "description": "Do you have any questions? We have got you covered.",
+    "title": "Frequently asked questions",
+    "items": {
+      "refundPolicy": {
+        "question": "What is the refund policy?",
+        "answer": "We offer a 30-day money-back guarantee if you're not happy with our product."
+      },
+      "cancelSubscription": {
+        "question": "How do I cancel my subscription?",
+        "answer": "You can cancel your subscription by visiting the billing page."
+      },
+      "changePlan": {
+        "question": "Can I change my plan?",
+        "answer": "Yes, you can change your plan at any time by visiting the billing page."
+      },
+      "freeTrial": {
+        "question": "Do you offer a free trial?",
+        "answer": "Yes, we offer a 14-day free trial."
+      },
+      "whatIsShipAny": {
+        "question": "What is this product?",
+        "answer": "It is a development framework for quickly building AI SaaS products. It comes with rich built-in modules and components, ready to use out of the box."
+      },
+      "noCode": {
+        "question": "Can I use it without coding knowledge?",
+        "answer": "This product is mainly designed for users with some development experience. If you are familiar with basic web development concepts, you can get started quickly."
+      },
+      "whatCanBuild": {
+        "question": "What types of AI SaaS can I build?",
+        "answer": "You can build AI writing tools, AI image generators, AI chatbots, subscription-based SaaS, and more. Core features like multi-tenancy, payments, and authentication are all supported."
+      },
+      "howLong": {
+        "question": "How long does it take to develop a project?",
+        "answer": "Thanks to the rich pre-built modules, most developers can launch an MVP within a few days to a week, saving months compared to building from scratch."
+      },
+      "infrastructure": {
+        "question": "What infrastructure is included?",
+        "answer": "The framework includes authentication, database, payments, email, storage, i18n, admin panel, and more — all ready to use out of the box."
+      },
+      "customization": {
+        "question": "What customization options are available?",
+        "answer": "All code is fully open. You can freely modify themes, UI components, business logic, and integrate any third-party services."
+      }
+    },
+    "contactEmailLabel": "Have a question? Email us at:",
+    "contactDiscordLabel": "Or reach us on:"
+  },
+  "home": {
+    "hero": {
+      "new": "New:",
+      "featureBadge": "Amazing feature of your SaaS",
+      "title": "Your revolutionary SaaS built with Next.js",
+      "subtitle": "This is a demo application built with supastarter. It will save you a lot of time and effort building your next SaaS.",
+      "getStarted": "Get started",
+      "documentation": "Documentation",
+      "imageAlt": "Our application",
+      "builtWith": "Built & shipped with these awesome tools",
+      "tabs": {
+        "multiTenant": "Multi-tenant",
+        "database": "Database",
+        "storage": "Object Storage",
+        "auth": "Authentication",
+        "payment": "Payment",
+        "blog": "Blog",
+        "docs": "Docs",
+        "seo": "SEO",
+        "deploy": "Deployment",
+        "analytics": "Analytics"
+      },
+      "socialProof": "999+ users built with ShipAny"
+    },
+    "features": {
+      "badge": "Incredible features",
+      "title": "Features your clients will love",
+      "description": "In this section you can showcase all the features of your SaaS provides and how they can benefit your clients.",
+      "feature1": {
+        "title": "Feature 1",
+        "subtitle": "Do more with our amazing SaaS.",
+        "description": "This is a brilliant feature. And below you can see some reasons why. This is basically just a dummy text.",
+        "benefit1": {
+          "title": "Benefit 1",
+          "description": "This is an awesome benefit. And below you can see some reasons why. This is basically just a dummy text."
+        },
+        "benefit2": {
+          "title": "Benefit 2",
+          "description": "This is an awesome benefit. And below you can see some reasons why. This is basically just a dummy text."
+        },
+        "benefit3": {
+          "title": "Benefit 3",
+          "description": "This is an awesome benefit. And below you can see some reasons why. This is basically just a dummy text."
+        }
+      },
+      "feature2": {
+        "title": "Feature 2",
+        "subtitle": "Your SaaS can also do this.",
+        "description": "Another dummy text for another feature.",
+        "benefit1": {
+          "title": "Benefit 1",
+          "description": "This is an awesome benefit. And below you can see some reasons why. This is basically just a dummy text."
+        },
+        "benefit2": {
+          "title": "Benefit 2",
+          "description": "This is an awesome benefit. And below you can see some reasons why. This is basically just a dummy text."
+        },
+        "benefit3": {
+          "title": "Benefit 3",
+          "description": "This is an awesome benefit. And below you can see some reasons why. This is basically just a dummy text."
+        }
+      }
+    },
+    "earlyAccess": {
+      "title": "Start Building Your AI SaaS Today",
+      "subtitle": "Start here and ship your product fast with supastarter.",
+      "getStarted": "Get Started",
+      "readDocs": "Read Docs"
+    },
+    "testimonials": {
+      "title": "What users say",
+      "subtitle": "Hear from real users who have shipped with us",
+      "items": {
+        "andy": {
+          "quote": "The speed of Next.js + convenient payment ecosystem + out-of-the-box AI capabilities + constant feature iterations made this the closest thing to WordPress in the AI era.",
+          "name": "Andy",
+          "role": "Product Director, Public Company",
+          "initials": "An"
+        },
+        "blank": {
+          "quote": "It shortened the journey from idea to product. Its plugin architecture enables rapid feature expansion, and the configuration-based approach minimizes code changes — perfect for launching SaaS products quickly.",
+          "name": "blank",
+          "role": "Author of AITDK",
+          "initials": "bl"
+        },
+        "corey": {
+          "quote": "The best template for Vibe Coding. The AI-friendly architecture lets you launch a product MVP with just a few rounds of AI conversation, turning ideas into reality.",
+          "name": "Corey",
+          "role": "Independent Developer",
+          "initials": "Co"
+        },
+        "gefei": {
+          "quote": "Congrats on V2! Many friends in my community have launched their sites using it and gained traffic and revenue. Building a SaaS from scratch could take months; this saves time so you can focus on growth.",
+          "name": "Gefei",
+          "role": "Overseas Community Founder",
+          "initials": "GF"
+        },
+        "james": {
+          "quote": "It helped me transition from product manager to full-stack developer. I've built several international websites with it, and they keep generating steady income.",
+          "name": "James",
+          "role": "Product Manager",
+          "initials": "Ja"
+        },
+        "justDoIt": {
+          "quote": "I recently built a website with it in under 30 minutes. The whole journey went smoothly — I didn't expect it to come together so fast!",
+          "name": "JustDoIt",
+          "role": "Tech Manager",
+          "initials": "JD"
+        }
+      }
+    }
+  },
+  "newsletter": {
+    "email": "Email",
+    "hints": {
+      "error": {
+        "message": "Could not subscribe to newsletter. Please try again later."
+      },
+      "success": {
+        "message": "Thank you for subscribing to our newsletter. We will keep you posted.",
+        "title": "Subscribed"
+      }
+    },
+    "submit": "Subscribe",
+    "subtitle": "Be among the first to get access to supastarter.nextjs.",
+    "title": "Get early access"
+  },
+  "notFound": {
+    "code": "404",
+    "title": "Page not found",
+    "goToDashboard": "Go to dashboard",
+    "goToHomepage": "Go to homepage"
+  },
+  "common": {
+    "footer": {
+      "blog": "Blog",
+      "features": "Features",
+      "pricing": "Pricing",
+      "privacyPolicy": "Privacy policy",
+      "termsAndConditions": "Terms and conditions",
+      "builtWith": "Built with supastarter",
+      "description": "A modern SaaS starter kit built with Next.js. Ship faster with pre-built modules and components.",
+      "featuresTitle": "Features",
+      "resourcesTitle": "Resources",
+      "legalTitle": "Legal",
+      "docs": "Docs",
+      "changelog": "Changelog",
+      "contact": "Contact",
+      "allRightsReserved": "All rights reserved"
+    },
+    "menu": {
+      "blog": "Blog",
+      "changelog": "Changelog",
+      "contact": "Contact",
+      "dashboard": "Dashboard",
+      "docs": "Docs",
+      "faq": "FAQ",
+      "login": "Login",
+      "pricing": "Pricing"
+    },
+    "aria": {
+      "menu": "Menu",
+      "language": "Language"
+    },
+    "tableOfContents": {
+      "title": "On this page"
+    },
+    "colorMode": {
+      "system": "System",
+      "light": "Light",
+      "dark": "Dark"
+    }
+  }
 }

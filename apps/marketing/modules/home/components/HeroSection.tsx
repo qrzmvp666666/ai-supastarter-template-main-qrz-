@@ -2,12 +2,14 @@
 
 import { config } from "@config";
 import { Button } from "@repo/ui/components/button";
-import { ArrowRightIcon } from "lucide-react";
+import { ArrowRightIcon, StarIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 import heroImageDark from "../../../public/images/hero-image-dark.png";
 import heroImage from "../../../public/images/hero-image.png";
+import { AVATAR_PHOTO_IDS, TESTIMONIAL_KEYS } from "../lib/testimonials";
+import { HeroTabs } from "./HeroTabs";
 
 export function HeroSection() {
 	const t = useTranslations();
@@ -48,7 +50,42 @@ export function HeroSection() {
 					)}
 				</div>
 
-				<div className="mt-12 lg:mt-16 lg:flex-1 p-4 mx-auto rounded-4xl border border-primary/10 bg-primary/5">
+				{/* Social proof */}
+				<div className="mt-6 flex items-center justify-center gap-3">
+					<div className="flex items-center">
+						{TESTIMONIAL_KEYS.map((key, i) => (
+							<div
+								key={key}
+								className={`size-9 rounded-full border-2 border-background overflow-hidden ${i > 0 ? "-ml-3" : ""}`}
+							>
+								<Image
+									src={`https://i.pravatar.cc/72?img=${AVATAR_PHOTO_IDS[key]}`}
+									alt={key}
+									width={36}
+									height={36}
+									className="size-full object-cover"
+									unoptimized
+								/>
+							</div>
+						))}
+					</div>
+					<div className="text-left">
+						<div className="flex items-center gap-0.5">
+							{Array.from({ length: 5 }).map((_, i) => (
+								<StarIcon key={i} className="size-4 fill-yellow-400 text-yellow-400" />
+							))}
+						</div>
+						<p className="mt-0.5 text-xs text-muted-foreground">
+							{t("home.hero.socialProof")}
+						</p>
+					</div>
+				</div>
+
+				<div className="mt-8 lg:mt-10">
+					<HeroTabs />
+				</div>
+
+				<div className="mt-4 p-4 mx-auto rounded-4xl border border-primary/10 bg-primary/5">
 					<Image
 						src={heroImage}
 						alt={t("home.hero.imageAlt")}

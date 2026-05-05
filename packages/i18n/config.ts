@@ -2,6 +2,10 @@ import type { I18nConfig } from "./types";
 
 export const config = {
 	locales: {
+		zh: {
+			label: "中文",
+			currency: "CNY",
+		},
 		en: {
 			label: "English",
 			currency: "USD",
@@ -19,7 +23,7 @@ export const config = {
 			currency: "USD",
 		},
 	},
-	defaultLocale: "en",
+	defaultLocale: "zh",
 	defaultCurrency: "USD",
 	localeCookieName: "NEXT_LOCALE",
 } as const satisfies I18nConfig;
