@@ -1,3 +1,9 @@
+/**
+ * Payment method identifier used to select the correct price variant.
+ * Mirrors the values used in the pricing UI and passed to Stripe checkout.
+ */
+export type PaymentMethod = "card" | "wechat_person" | "alipay_person";
+
 export interface BasePrice {
 	/**
 	 * Price amount in major currency units, for example `29` for USD 29.00.
@@ -12,6 +18,12 @@ export interface BasePrice {
 	 * unavailable because env-backed values are stripped by Next.js.
 	 */
 	priceId?: string;
+	/**
+	 * Payment method this price applies to. When omitted the price is treated
+	 * as the default (card) variant and will be shown for all methods that do
+	 * not have a dedicated price entry.
+	 */
+	paymentMethod?: PaymentMethod;
 }
 
 export interface SubscriptionPrice {

@@ -3,11 +3,10 @@
 import { usePlanData } from "@payments/hooks/plan-data";
 import type { PlanId } from "@payments/types";
 import { config as paymentsConfig } from "@repo/payments/config";
-import type { PaidPlan } from "@repo/payments/types";
+import type { PaidPlan, PaymentMethod } from "@repo/payments/types";
 import { cn } from "@repo/ui";
 import { Button } from "@repo/ui/components/button";
 import { Tabs, TabsList, TabsTrigger } from "@repo/ui/components/tabs";
-import { useLocaleCurrency } from "@shared/hooks/locale-currency";
 import { useRouter } from "@shared/hooks/router";
 import { orpc } from "@shared/lib/orpc-query-utils";
 import { useMutation } from "@tanstack/react-query";
@@ -20,8 +19,6 @@ import {
 } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 import { useState } from "react";
-
-type PaymentMethod = "card" | "wechat_person" | "alipay_person";
 
 function WechatPayIcon({ className }: { className?: string }) {
 	return (
@@ -45,10 +42,10 @@ function WechatPayIcon({ className }: { className?: string }) {
 function AlipayIcon({ className }: { className?: string }) {
 	return (
 		<svg className={className} viewBox="0 0 24 24" aria-hidden="true">
-			<rect x="2.5" y="2.5" width="19" height="19" rx="4.5" fill="#1677FF" />
+			<rect x="2.5" y="2.5" width="19" height="19" rx="3.5" fill="#1677FF" />
 			<path
 				fill="#FFFFFF"
-				d="M15.47 7.25h-2.1l-.63 1.73H8.3v1.88h3.76l-.47 1.28H8.02v1.88h2.89l-1.27 3.48h2.12l1.27-3.48h3.9v-1.88H13.7l.46-1.28h3.18V8.98h-2.5l.63-1.73Z"
+				d="M6 6.1h12v1.9H6zM10.9 3.9h2.2v7.2h-2.2zM6.2 11.2c1.6-.8 3.4-1.2 5.4-1.2 1.8 0 3.8.4 6 1.3l-.8 1.9c-1.4-.5-2.6-.8-3.7-1 .9 1 2 1.9 3.4 2.8l-1.5 1.7c-1.7-1-3.2-2.3-4.4-3.8-.9 1.7-2.5 3.3-5 4.8L4.4 16c2.8-1.5 4.4-3.1 5-4.8-1.3 0-2.4.2-3.4.7z"
 			/>
 		</svg>
 	);
@@ -75,12 +72,11 @@ export function PricingTable({
 	const t = useTranslations();
 	const format = useFormatter();
 	const router = useRouter();
-	const localeCurrency = useLocaleCurrency();
 	const [loading, setLoading] = useState<PlanId | false>(false);
 	const [interval, setInterval] = useState<"month" | "year">("month");
+	const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("card");
 
 	const { planData } = usePlanData();
-	const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("card");
 
 	const createCheckoutLinkMutation = useMutation(
 		orpc.payments.createCheckoutLink.mutationOptions(),
@@ -203,7 +199,7 @@ export function PricingTable({
 						(price) =>
 							!hidden &&
 							(price.type === "one-time" || price.interval === interval) &&
-							price.currency === localeCurrency,
+							(price.paymentMethod ?? "card") === paymentMethod,
 					);
 
 					if (!price && !isEnterprise) {

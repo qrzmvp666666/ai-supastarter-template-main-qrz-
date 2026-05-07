@@ -3,7 +3,7 @@
 import { config } from "@config";
 import { LocaleLink } from "@i18n/routing";
 import { config as paymentsConfig } from "@repo/payments/config";
-import type { PaidPlan } from "@repo/payments/types";
+import type { PaidPlan, PaymentMethod } from "@repo/payments/types";
 import { cn } from "@repo/ui";
 import { Button } from "@repo/ui/components/button";
 import { Tabs, TabsList, TabsTrigger } from "@repo/ui/components/tabs";
@@ -16,8 +16,6 @@ import {
 } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
-
-type PaymentMethod = "card" | "wechat_person" | "alipay_person";
 
 function WechatPayIcon({ className }: { className?: string }) {
 	return (
@@ -209,7 +207,9 @@ export function PricingSection() {
 							const price = isFree
 								? undefined
 								: plan.prices?.find(
-										(p) => p.type === "one-time" || p.interval === interval,
+										(p) =>
+											(p.type === "one-time" || p.interval === interval) &&
+											(p.paymentMethod ?? "card") === paymentMethod,
 									);
 							const trialPeriodDays =
 								price && "trialPeriodDays" in price && price.trialPeriodDays
