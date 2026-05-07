@@ -11,9 +11,27 @@ import { useLocaleCurrency } from "@shared/hooks/locale-currency";
 import { useRouter } from "@shared/hooks/router";
 import { orpc } from "@shared/lib/orpc-query-utils";
 import { useMutation } from "@tanstack/react-query";
-import { ArrowRightIcon, BadgePercentIcon, CheckIcon, StarIcon } from "lucide-react";
+import { ArrowRightIcon, BadgePercentIcon, CheckIcon, CreditCardIcon, StarIcon } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 import { useState } from "react";
+
+type PaymentMethod = "card" | "wechat_person" | "alipay_person";
+
+function WechatPayIcon({ className }: { className?: string }) {
+	return (
+		<svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+			<path d="M9.5 4C5.36 4 2 6.91 2 10.5c0 2.02 1.07 3.82 2.75 5.03L4 18l2.5-1.25c.97.27 2 .42 3 .42.23 0 .46-.01.69-.03C10.07 16.64 10 16.08 10 15.5c0-3.31 3.13-6 7-6 .23 0 .46.01.69.03C17.07 7.23 13.6 4 9.5 4zm-2 4.5a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm4 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2zM17 11c-3.31 0-6 2.24-6 5s2.69 5 6 5c.76 0 1.5-.13 2.18-.36L22 22l-.73-2.55C22.36 18.45 23 17.28 23 16c0-2.76-2.69-5-6-5zm-1.5 3.5a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5zm3 0a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5z" />
+		</svg>
+	);
+}
+
+function AlipayIcon({ className }: { className?: string }) {
+	return (
+		<svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+			<path d="M21.422 15.358c-3.83-1.153-6.055-1.84-6.743-2.063a10.947 10.947 0 0 0 1.321-5.295C16 4.477 13.523 2 11 2H8C5.477 2 3 4.477 3 7v10c0 2.523 2.477 5 5 5h8c2.523 0 5-2.477 5-5v-.927c0-.308-.213-.578-.578-.715zM11 4c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zm7 13c0 1.657-1.343 3-3 3H8c-1.657 0-3-1.343-3-3v-4.354c1.674.913 3.696 1.805 5.96 2.463.24.069.487.104.734.104C13.247 19.213 15 17.46 15 15.307c0-.4-.073-.782-.205-1.139C16.238 14.552 17.7 15.013 18 15.1V17z" />
+		</svg>
+	);
+}
 
 const plans = paymentsConfig.plans;
 
@@ -41,6 +59,7 @@ export function PricingTable({
 	const [interval, setInterval] = useState<"month" | "year">("month");
 
 	const { planData } = usePlanData();
+	const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("card");
 
 	const createCheckoutLinkMutation = useMutation(
 		orpc.payments.createCheckoutLink.mutationOptions(),
@@ -101,6 +120,49 @@ export function PricingTable({
 					</Tabs>
 				</div>
 			)}
+
+			<div className="mb-6 flex flex-wrap items-center justify-center gap-2">
+				<span className="text-sm text-foreground/50">{t("pricing.paymentMethod")}:</span>
+				<button
+					type="button"
+					onClick={() => setPaymentMethod("card")}
+					className={cn(
+						"flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-all",
+						paymentMethod === "card"
+							? "border-foreground/30 bg-foreground/10 text-foreground"
+							: "border-border text-foreground/50 hover:border-foreground/30 hover:text-foreground/80",
+					)}
+				>
+					<CreditCardIcon className="size-3.5" />
+					{t("pricing.paymentMethods.card")}
+				</button>
+				<button
+					type="button"
+					onClick={() => setPaymentMethod("wechat_person")}
+					className={cn(
+						"flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-all",
+						paymentMethod === "wechat_person"
+							? "border-[#07c160] bg-[#07c160]/10 text-[#07c160]"
+							: "border-border text-foreground/50 hover:border-[#07c160]/50 hover:text-[#07c160]/80",
+					)}
+				>
+					<WechatPayIcon className="size-3.5" />
+					{t("pricing.paymentMethods.wechat_person")}
+				</button>
+				<button
+					type="button"
+					onClick={() => setPaymentMethod("alipay_person")}
+					className={cn(
+						"flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-all",
+						paymentMethod === "alipay_person"
+							? "border-[#1677ff] bg-[#1677ff]/10 text-[#1677ff]"
+							: "border-border text-foreground/50 hover:border-[#1677ff]/50 hover:text-[#1677ff]/80",
+					)}
+				>
+					<AlipayIcon className="size-3.5" />
+					{t("pricing.paymentMethods.alipay_person")}
+				</button>
+			</div>
 			<div className="gap-4 grid grid-cols-3">
 				{filteredPlans.map(([planId, plan]) => {
 					const isEnterprise = "isEnterprise" in plan ? plan.isEnterprise : false;

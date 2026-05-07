@@ -1,61 +1,67 @@
 {
-	"pricing": {
-		"choosePlan": "选择套餐",
-		"contactSales": "联系销售",
-		"description": "选择最适合您的套餐。",
-		"getStarted": "立即开始",
-		"month": "{count, plural, one {个月} other {{count} 个月}}",
-		"monthly": "按月付费",
-		"products": {
-			"basic": {
-				"description": "适合小型团队。",
-				"features": {
-					"anotherFeature": "另一个惊人功能",
-					"limitedSupport": "有限支持"
-				},
-				"title": "基础版"
-			},
-			"enterprise": {
-				"description": "根据您的需求定制方案",
-				"features": {
-					"enterpriseSupport": "企业级支持",
-					"unlimitedProjects": "无限项目"
-				},
-				"title": "企业版"
-			},
-			"free": {
-				"description": "免费开始使用",
-				"features": {
-					"anotherFeature": "另一个惊人功能",
-					"limitedSupport": "有限支持"
-				},
-				"title": "免费版"
-			},
-			"lifetime": {
-				"description": "一次购买，终身使用。",
-				"features": {
-					"extendSupport": "延伸支持",
-					"noRecurringCosts": "无循环费用"
-				},
-				"title": "终身版"
-			},
-			"pro": {
-				"description": "适合团队使用",
-				"features": {
-					"anotherFeature": "另一个惊人功能",
-					"fiveMembers": "最多 5 名成员",
-					"fullSupport": "全面支持"
-				},
-				"title": "专业版"
-			}
-		},
-		"purchase": "购买",
-		"recommended": "推荐",
-		"subscribe": "订阅",
-		"title": "定价",
-		"trialPeriod": "{days} 天免费试用",
-		"year": "{count, plural, one {年} other {{count} 年}}",
-		"yearly": "按年付费",
-		"perSeat": "席位"
-	}
+  "pricing": {
+    "choosePlan": "选择套餐",
+    "contactSales": "联系销售",
+    "description": "选择最适合您的套餐。",
+    "getStarted": "立即开始",
+    "month": "{count, plural, one {个月} other {{count} 个月}}",
+    "monthly": "按月付费",
+    "products": {
+      "basic": {
+        "description": "适合小型团队。",
+        "features": {
+          "anotherFeature": "另一个惊人功能",
+          "limitedSupport": "有限支持"
+        },
+        "title": "基础版"
+      },
+      "enterprise": {
+        "description": "根据您的需求定制方案",
+        "features": {
+          "enterpriseSupport": "企业级支持",
+          "unlimitedProjects": "无限项目"
+        },
+        "title": "企业版"
+      },
+      "free": {
+        "description": "免费开始使用",
+        "features": {
+          "anotherFeature": "另一个惊人功能",
+          "limitedSupport": "有限支持"
+        },
+        "title": "免费版"
+      },
+      "lifetime": {
+        "description": "一次购买，终身使用。",
+        "features": {
+          "extendSupport": "延伸支持",
+          "noRecurringCosts": "无循环费用"
+        },
+        "title": "终身版"
+      },
+      "pro": {
+        "description": "适合团队使用",
+        "features": {
+          "anotherFeature": "另一个惊人功能",
+          "fiveMembers": "最多 5 名成员",
+          "fullSupport": "全面支持"
+        },
+        "title": "专业版"
+      }
+    },
+    "purchase": "购买",
+    "recommended": "推荐",
+    "subscribe": "订阅",
+    "title": "定价",
+    "trialPeriod": "{days} 天免费试用",
+    "year": "{count, plural, one {年} other {{count} 年}}",
+    "yearly": "按年付费",
+    "perSeat": "席位",
+    "paymentMethod": "支付方式",
+    "paymentMethods": {
+      "card": "信用卡",
+      "wechat_person": "微信支付",
+      "alipay_person": "支付宝"
+    }
+  }
 }
